@@ -1,10 +1,10 @@
 @isTest
-public class SalesforceFactory {
+public class SObjectFactory {
 	public static SObject createSObject(SObject sobj) {
 		String objectName = String.valueOf(sObj.getSObjectType());
 
 		if(noDefaultClassConfigured(objectName)) {
-			Throw new TestFactoryException('Invalid defaults class.');
+			Throw new SObjectFactoryException('Invalid defaults class.');
 		}
 
         Type type = Type.forName(defaultClassName); 
@@ -53,7 +53,7 @@ public class SalesforceFactory {
 	}
 
     private static Boolean noDefaultClassConfigured(String objectName) {
-		String defaultClassName = 'TestFactory.' + objectName.replaceAll('__(c|C)$|__', '') + 'Defaults';
+		String defaultClassName = 'SObjectFactory.' + objectName.replaceAll('__(c|C)$|__', '') + 'Defaults';
         
         Type t = Type.forName(defaultClassName);
 
@@ -76,7 +76,7 @@ public class SalesforceFactory {
 		'Case' => 'Subject'
 	};
 
-	public class TestFactoryException extends Exception {}
+	public class SObjectFactoryException extends Exception {}
 
 	// Use the FieldDefaults interface to set up values you want to default in for all objects.
 	public interface FieldDefaults {
